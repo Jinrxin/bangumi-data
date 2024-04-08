@@ -20,7 +20,7 @@ jobs:
       - name: get repo
         uses: actions/checkout@v4.1.2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ACTION_TOKEN }}
 
       # Node环境
       - name: Setup Node.js environment
@@ -46,7 +46,7 @@ jobs:
       - name: Github Push Action
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ACTION_TOKEN }}
 
       # 提交NPM
       - name: Publish to NPM
