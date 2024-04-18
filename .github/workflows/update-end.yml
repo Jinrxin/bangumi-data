@@ -1,0 +1,36 @@
+name: Update End Daily
+
+on:
+    schedule:
+        - cron: "10 20 * * *"
+    workflow_dispatch:
+
+jobs:
+    daily:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4.1.2
+              with:
+                  fetch-depth: 0
+                  ref: master
+
+            # node 环境
+            - uses: actions/setup-node@v4.0.2
+              with:
+                  node-version: 20
+                  registry-url: https://registry.npmjs.org/
+
+            # 安装依赖
+            - name: Install Dependencies
+              run: npm install
+
+            # 执行任务
+            - name: Run Daily
+              id: daily
+              run: npm run daily
+
+            # 提交Git
+            - name: Github Push Action
+              uses: ad-m/github-push-action@master
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
