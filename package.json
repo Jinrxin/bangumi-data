@@ -1,6 +1,6 @@
 {
     "name": "bangumi-database",
-    "version": "0.2.0",
+    "version": "0.2.2",
     "description": "动漫字典",
     "main": "dist/data.json",
     "type": "module",

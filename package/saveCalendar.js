@@ -82,7 +82,7 @@ const processCalendarItem = async (calendarItem, data) => {
  */
 const saveCalendar = async () => {
     try {
-        console.log("开始报讯每日放送表数据");
+        console.log("开始获取每日放送表数据");
         // 请求获取动漫和日历数据
         const [resData, resCalendar] = await Promise.all([
             axios.get(config.DATA_URL),
@@ -112,7 +112,7 @@ const saveCalendar = async () => {
         const subjectIds = calendar.flatMap((day) => day.items.map((item) => item.id));
 
         // 保存动漫详细信息
-        await saveSubjectList(subjectIds, 500, 10);
+        await saveSubjectList(subjectIds, 200, 5);
 
         console.log("写入完成");
         console.log("保存每日放送表数据完成");

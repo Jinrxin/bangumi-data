@@ -31,6 +31,7 @@ async function saveSubjectList(list, wait, concurrency) {
             );
         } catch (error) {
             console.error(error);
+            throw error;
         }
     }
 
