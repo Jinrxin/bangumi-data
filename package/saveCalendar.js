@@ -71,8 +71,12 @@ const processCalendarItem = async (calendarItem, data) => {
                         latestEpisode = episode;
                     }
                 }
-                // anime.episodes = episodes.data
+                anime.episodes = episodes.data.length;
                 anime.latestEpisode = latestEpisode;
+                anime.nextEpisode =
+                    latestEpisode.ep < episodes.data.length
+                        ? latestEpisode.ep + 1
+                        : episodes.data.length;
             } catch (error) {
                 console.log(`ID:${anime.id}信息不存在`);
             }
@@ -123,7 +127,5 @@ const saveCalendar = async () => {
         throw error;
     }
 };
-
-saveCalendar();
 
 export default saveCalendar;
