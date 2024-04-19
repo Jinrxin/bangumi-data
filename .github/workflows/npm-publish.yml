@@ -7,7 +7,7 @@ on:
 
 # 工作流
 jobs:
-    daily:
+    main:
         # 运行系统
         runs-on: ubuntu-latest
 

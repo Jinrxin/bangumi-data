@@ -46,6 +46,9 @@ const processCalendarItem = async (calendarItem, data) => {
                 anime.data.broadcast = bangumi.broadcast;
                 anime.data.tokyoTime = bangumi.tokyoTime;
                 anime.data.shanghaiTime = bangumi.shanghaiTime;
+                const begin = bangumi.begin.split("T")[0];
+                const beginShanghai = bangumi.shanghaiTime.split(" ")[0].replaceAll("/", "-");
+                anime.data.isNextDay = new Date(beginShanghai) - new Date(begin) ? true : false;
             }
             // 查询分集信息
             try {
@@ -69,7 +72,7 @@ const processCalendarItem = async (calendarItem, data) => {
                     }
                 }
                 // anime.episodes = episodes.data
-                anime.latestEpisode = latestEpisode
+                anime.latestEpisode = latestEpisode;
             } catch (error) {
                 console.log(`ID:${anime.id}信息不存在`);
             }
@@ -120,5 +123,7 @@ const saveCalendar = async () => {
         throw error;
     }
 };
+
+saveCalendar();
 
 export default saveCalendar;
