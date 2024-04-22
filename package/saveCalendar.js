@@ -119,12 +119,12 @@ const saveCalendar = async () => {
         const subjectIds = calendar.flatMap((day) => day.items.map((item) => item.id));
 
         // 保存动漫详细信息
-        await saveSubjectList(subjectIds, 500, 2);
+        await saveSubjectList(subjectIds, 500, 1);
 
         console.log("写入完成");
         console.log("保存每日放送表数据完成");
     } catch (error) {
-        throw error;
+        console.log(error);
     }
 };
 

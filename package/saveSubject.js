@@ -22,6 +22,8 @@ async function saveSubjectList(list, wait, concurrency) {
                 headers: {
                     "User-Agent": config.USER_AGENT,
                 },
+            }).catch(res=>{
+                console.log(res);
             });
             if (!fs.existsSync(config.subjectDir)) fs.mkdirSync(config.subjectDir);
             await fs.promises.writeFile(
@@ -35,8 +37,7 @@ async function saveSubjectList(list, wait, concurrency) {
             );
         } catch (error) {
             console.error(error);
-            throw error;
-        }
+\        }
     }
 
     // 并发执行查询和写入操作
