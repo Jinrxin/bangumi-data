@@ -17,7 +17,7 @@ const CALENDAR_URL = "https://api.bgm.tv/calendar";
 
 // 主题数据
 const subjectURL = (id) => {
-    return `https://api.bgm.tv/subject/${id}`;
+    return `https://api.bgm.tv/v0/subjects/${id}`;
 };
 
 // 分集数据
