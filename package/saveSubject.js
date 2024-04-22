@@ -18,7 +18,11 @@ async function saveSubjectList(list, wait, concurrency) {
     // 定义并发请求函数
     async function fetchAndWrite(id) {
         try {
-            const res = await axios.get(config.subjectURL(id));
+            const res = await axios.get(config.subjectURL(id), {
+                headers: {
+                    "User-Agent": config.USER_AGENT,
+                },
+            });
             if (!fs.existsSync(config.subjectDir)) fs.mkdirSync(config.subjectDir);
             await fs.promises.writeFile(
                 path.join(config.subjectDir, `${id}.json`),
