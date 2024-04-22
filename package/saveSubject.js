@@ -37,7 +37,7 @@ async function saveSubjectList(list, wait, concurrency) {
             );
         } catch (error) {
             console.error(error);
-\        }
+       }
     }
 
     // 并发执行查询和写入操作
