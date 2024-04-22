@@ -18,25 +18,25 @@ async function saveSubjectList(list, wait, concurrency) {
     // 定义并发请求函数
     async function fetchAndWrite(id) {
         try {
+            cursor++;
             const res = await axios.get(config.subjectURL(id), {
                 headers: {
                     "User-Agent": config.USER_AGENT,
                 },
-            })
+            });
             if (!fs.existsSync(config.subjectDir)) fs.mkdirSync(config.subjectDir);
             await fs.promises.writeFile(
                 path.join(config.subjectDir, `${id}.json`),
                 JSON.stringify(res.data)
             );
             console.log(
-                `写入${id}.json完成，进度：${((cursor++ / length) * 100).toFixed(
+                `写入${id}.json完成，进度：${((cursor / length) * 100).toFixed(
                     2
                 )}%, 数量：${cursor}  / ${length}`
             );
         } catch (error) {
             console.log(`ID:${id}主题信息NO FOUND`);
-
-       }
+        }
     }
 
     // 并发执行查询和写入操作
