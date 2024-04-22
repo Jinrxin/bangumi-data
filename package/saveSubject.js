@@ -22,9 +22,7 @@ async function saveSubjectList(list, wait, concurrency) {
                 headers: {
                     "User-Agent": config.USER_AGENT,
                 },
-            }).catch(res=>{
-                console.log(res);
-            });
+            })
             if (!fs.existsSync(config.subjectDir)) fs.mkdirSync(config.subjectDir);
             await fs.promises.writeFile(
                 path.join(config.subjectDir, `${id}.json`),
@@ -36,7 +34,8 @@ async function saveSubjectList(list, wait, concurrency) {
                 )}%, 数量：${cursor}  / ${length}`
             );
         } catch (error) {
-            console.error(error);
+            console.log(`ID:${id}主题信息NO FOUND`);
+
        }
     }
 
