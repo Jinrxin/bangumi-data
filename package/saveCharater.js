@@ -23,5 +23,4 @@ const saveSubjectCharaters = async () => {
     }
 };
 
-
 export default saveSubjectCharaters;

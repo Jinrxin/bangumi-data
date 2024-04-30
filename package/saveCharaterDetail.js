@@ -15,11 +15,12 @@ const saveCharaterDetail = async (id) => {
                 "User-Agent": config.USER_AGENT,
             },
         });
-        if (!fs.existsSync(config.charaterDir)) fs.mkdirSync(config.charaterDir);
-        await fs.promises.writeFile(
-            path.join(config.charaterDir, `${id}.json`),
-            JSON.stringify(res.data)
-        );
+        // if (!fs.existsSync(config.charaterDir)) fs.mkdirSync(config.charaterDir);
+        return res.data;
+        // await fs.promises.writeFile(
+        //     path.join(config.charaterDir, `${id}.json`),
+        //     JSON.stringify(res.data)
+        // );
     } catch (e) {
         console.log(`角色ID：${id}信息保存失败`);
     }
@@ -47,9 +48,10 @@ async function savaCharaterDetail(list, wait, concurrency) {
                 },
             });
             if (!fs.existsSync(config.subjectCharaterDir)) fs.mkdirSync(config.subjectCharaterDir);
+            const charaters = { noun: res.data, detail: [] };
             await fs.promises.writeFile(
                 path.join(config.subjectCharaterDir, `${id}.json`),
-                JSON.stringify(res.data)
+                JSON.stringify(charaters)
             );
             console.log(
                 `写入${id}.json完成，进度：${((cursor / length) * 100).toFixed(
@@ -61,8 +63,13 @@ async function savaCharaterDetail(list, wait, concurrency) {
                 console.log(`开始写入${id}动漫角色详细信息`);
                 await Promise.all(
                     res.data.map(async (item) => {
-                        await saveCharaterDetail(item.id);
+                        const detail = await saveCharaterDetail(item.id);
+                        charaters.detail.push(detail);
                     })
+                );
+                await fs.promises.writeFile(
+                    path.join(config.subjectCharaterDir, `${id}.json`),
+                    JSON.stringify(charaters)
                 );
             } else {
                 console.log(`ID:${id}角色信息NO FOUND`);
