@@ -2,7 +2,7 @@ import child_process from "child_process";
 import buildData from "../package/buildData.js";
 import saveBangumiData from "../package/saveBgm.js";
 import saveCalendar from "../package/saveCalendar.js";
-import saveSubjectCharaters from "../package/saveCharater.js";
+// import saveSubjectCharaters from "../package/saveCharater.js";
 
 
 /**
@@ -12,7 +12,7 @@ const daily = async () => {
     try {
         await saveCalendar();
         await saveBangumiData();
-        await saveSubjectCharaters()
+        // await saveSubjectCharaters()
         await buildData();
         child_process.execSync(`git config --local user.email GithubAction`);
         child_process.execSync(`git config --local user.name GithubAction@Jinrxin.com`);
