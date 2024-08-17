@@ -24,7 +24,7 @@ const saveRecentDataSubject = async () => {
             }
         });
         // 写入动漫
-        await saveSubjectList(subjectIds, 500, 2);
+        await saveSubjectList(subjectIds, 500, 2, data.items);
         console.log("保存近一年内放送的动漫完成");
     } catch (error) {
         console.error("保存近一年内放送的动漫失败:", error);

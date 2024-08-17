@@ -5,9 +5,10 @@ import path from "path";
 import config from "../config.js";
 
 function filterByBangumiId(items, bangumiId) {
-  return items.find((item) =>
-    item.sites.some((site) => site.site === "bangumi" && site.id === bangumiId)
+  const item = items.find((item) =>
+    item.sites.some((site) => site.site === "bangumi" && site.id === bangumiId.toString())
   );
+  return item;
 }
 
 /**
@@ -19,6 +20,8 @@ function filterByBangumiId(items, bangumiId) {
  * @returns {Promise} 所有查询和写入操作的 Promise
  */
 async function saveSubjectList(list, wait, concurrency, data) {
+  console.log(data);
+
   const length = list.length;
   let cursor = 0;
 
@@ -37,6 +40,8 @@ async function saveSubjectList(list, wait, concurrency, data) {
         bangumi: res.data,
         bangumiData: filterByBangumiId(data, id),
       };
+      console.log(bangumi);
+
       await fs.promises.writeFile(
         path.join(config.subjectDir, `${id}.json`),
         JSON.stringify(bangumi)
@@ -47,6 +52,8 @@ async function saveSubjectList(list, wait, concurrency, data) {
         )}%, 数量：${cursor}  / ${length}`
       );
     } catch (error) {
+      console.log(error);
+
       console.log(`ID:${id}主题信息NO FOUND`);
     }
   }
