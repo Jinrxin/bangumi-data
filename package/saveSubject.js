@@ -40,8 +40,6 @@ async function saveSubjectList(list, wait, concurrency, data) {
         bangumi: res.data,
         bangumiData: filterByBangumiId(data, id),
       };
-      console.log(bangumi);
-
       await fs.promises.writeFile(
         path.join(config.subjectDir, `${id}.json`),
         JSON.stringify(bangumi)
